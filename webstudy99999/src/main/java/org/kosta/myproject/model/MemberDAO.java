@@ -1,6 +1,7 @@
 package org.kosta.myproject.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -16,6 +17,27 @@ public class MemberDAO {
 	}
 	public  Connection getConnection() throws SQLException{
 		return dataSource.getConnection(); 
+	}
+	
+	public void register(MemberVO memberVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=getConnection();
+			String sql="INSERT INTO member(id,password,name) VALUES(?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, memberVO.getId());
+			pstmt.setString(2, memberVO.getPassword());
+			pstmt.setString(3, memberVO.getName());
+			pstmt.executeUpdate();
+		} finally {
+			if(pstmt!=null) {
+				pstmt.close();
+			}
+			if(con!=null) {
+				con.close();
+			}
+		}		
 	}
 	
 }
