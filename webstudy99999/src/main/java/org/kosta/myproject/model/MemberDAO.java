@@ -2,12 +2,9 @@ package org.kosta.myproject.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-<<<<<<< HEAD
-=======
 import java.sql.ResultSet;
->>>>>>> branch 'main' of https://github.com/cutegirljdk/afterdinning1026.git
-import java.sql.SQLException;
 
+import java.sql.SQLException;
 import javax.sql.DataSource;
 
 public class MemberDAO {
@@ -23,7 +20,22 @@ public class MemberDAO {
 		return dataSource.getConnection(); 
 	}
 	
-<<<<<<< HEAD
+	public void closeAll(PreparedStatement pstmt,Connection con) throws SQLException {
+		if(pstmt!=null)
+			pstmt.close();
+		if(con!=null)
+			con.close();
+	}
+	
+	public void closeAll(ResultSet rs,PreparedStatement pstmt,Connection con) throws SQLException {
+		if(rs!=null)
+			rs.close();
+		if(pstmt!=null)
+			pstmt.close();
+		if(con!=null)
+			con.close();
+	}
+
 	public void register(MemberVO memberVO) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -44,22 +56,4 @@ public class MemberDAO {
 			}
 		}		
 	}
-	
-=======
-	public void closeAll(PreparedStatement pstmt,Connection con) throws SQLException {
-		if(pstmt!=null)
-			pstmt.close();
-		if(con!=null)
-			con.close();
-	}
-	
-	public void closeAll(ResultSet rs,PreparedStatement pstmt,Connection con) throws SQLException {
-		if(rs!=null)
-			rs.close();
-		if(pstmt!=null)
-			pstmt.close();
-		if(con!=null)
-			con.close();
-	}
->>>>>>> branch 'main' of https://github.com/cutegirljdk/afterdinning1026.git
 }
