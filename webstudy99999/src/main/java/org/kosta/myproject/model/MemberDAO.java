@@ -56,4 +56,24 @@ public class MemberDAO {
 			}
 		}		
 	}
+	public MemberVO login(String id, String password) throws SQLException{
+		MemberVO memberVO=null;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql="select name from community_member where id=? and password=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				memberVO=new MemberVO(id, password, rs.getString(1));
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return memberVO;
+	}
 }
